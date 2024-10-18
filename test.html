@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Boxes </title>
+  <style>
+    body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    }
+    
+    .container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .box {
+        width: 300px;
+        height: 150px;
+        margin: 10px;
+        border: 1px solid black;
+        transition: all 0.3s ease-in-out;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    
+    h2{
+        cursor: pointer;
+    }
+
+    .box-content {
+        display: none; 
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .box.expanded {
+        width: 400px;
+        height: 250px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="box" id="box1">
+      <h2>Box 1</h2>
+      <div class="box-content">
+        <div class="options">
+          <div class="colors">
+            <h3>Colors</h3>
+            <select id="colorSelect1">
+              <option value="">Select Color</option>
+              <option value="red">Red</option>
+              <option value="blue">Blue</option>
+              <option value="green">Green</option>
+            </select>
+          </div>
+          <div class="sizes">
+            <h3>Sizes</h3>
+            <select id="sizeSelect1">
+              <option value="">Select Size</option>
+              <option value="small">Small</option>
+              <option value="medium">Medium</option>
+              <option value="large">Large</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="box" id="box2">
+      <h2>Box 2</h2>
+      <div class="box-content">
+        <div class="options">
+          <div class="colors">
+            <h3>Colors</h3>
+            <select id="colorSelect2">
+              <option value="">Select Color</option>
+              <option value="red">Red</option>
+              <option value="blue">Blue</option>
+              <option value="green">Green</option>
+            </select>
+          </div>
+          <div class="sizes">
+            <h3>Sizes</h3>
+            <select id="sizeSelect2">
+              <option value="">Select Size</option>
+              <option value="small">Small</option>
+              <option value="medium">Medium</option>
+              <option value="large">Large</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="box" id="box3">
+      <h2>Box 3</h2>
+      <div class="box-content">
+        <div class="options">
+          <div class="colors">
+            <h3>Colors</h3>
+            <select id="colorSelect3">
+              <option value="">Select Color</option>
+              <option value="red">Red</option>
+              <option value="blue">Blue</option>
+              <option value="green">Green</option>
+            </select>
+          </div>
+          <div class="sizes">
+            <h3>Sizes</h3>
+            <select id="sizeSelect3">
+              <option value="">Select Size</option>
+              <option value="small">Small</option>
+              <option value="medium">Medium</option>
+              <option value="large">Large</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <span>Note: Click on heading box to expand</span>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const boxes = document.querySelectorAll('.box');
+
+    boxes.forEach(box => {
+        const title = box.querySelector('h2');
+        const content = box.querySelector('.box-content');
+
+        title.addEventListener('click', () => {
+        content.style.display = content.style.display === 'flex' ? 'none' : 'flex';
+        box.classList.toggle('expanded');
+        });
+    });
+
+    const colorSelects = document.querySelectorAll('.colors select');
+    const sizeSelects = document.querySelectorAll('.sizes select');
+
+    colorSelects.forEach(select => {
+        select.addEventListener('change', (e) => {
+        e.stopPropagation();
+        const color = select.value;
+        const box = select.closest('.box');
+        if (color) {
+            box.style.backgroundColor = color;
+        }
+        });
+    });
+
+    sizeSelects.forEach(select => {
+        select.addEventListener('change', (e) => {
+        e.stopPropagation();
+        const size = select.value;
+        const box = select.closest('.box');
+        switch (size) {
+            case 'small':
+            box.style.fontSize = '10px';
+            break;
+            case 'medium':
+            box.style.fontSize = '14px';
+            break;
+            case 'large':
+            box.style.fontSize = '16px';
+            break;
+            default:
+            box.style.fontSize = '16px';
+        }
+        });
+    });
+    });
+  </script>
+</body>
+</html>
